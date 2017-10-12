@@ -7,6 +7,12 @@ pipeline {
   }
 
   stages {
+    stage("Fetch") {
+      steps {
+        echo "Cloning project"
+      }
+    }
+
     stage("Build") {
       steps {
         sh "./scripts/build.sh"
