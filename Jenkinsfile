@@ -1,6 +1,11 @@
 pipeline {
   agent any
 
+  environment {
+    DOCKER_USER = credentials("DOCKER_USER")
+    DOCKER_PASS = credentials("DOCKER_PASS")
+  }
+
   stages {
     stage("Build") {
       steps {
@@ -18,8 +23,8 @@ pipeline {
 
     stage("Push") {
       steps {
-        echo "Pushing container image to ECR"
-        sh "echo make push"
+        echo "Logging in with Docker"
+        sh "echo docker login -u $DOCKER_USER -p $DOCKER_PASS"
       }
     }
   }
